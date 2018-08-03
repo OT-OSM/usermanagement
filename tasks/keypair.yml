@@ -1,4 +1,3 @@
-# this will generate key_pair in localhost ansible-server 
 
 - name: Check if Keypair Exists
   stat:
