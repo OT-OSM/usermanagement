@@ -1,0 +1,42 @@
+# This role will create users and groups then add the .pub keys to users' authorized keys.
+
+- name: configure sudoers file in sudoer.d
+  template:
+    src: templates/sudoersfile
+    dest: /etc/sudoers.d/sudoersfile
+    mode: 0440
+    validate: 'visudo -cf %s'
+  tags: 
+    - user_mgmt
+
+- name: Add group
+  group:
+    name:  "{{item.name}}"
+    state: '{{item.gstate | default("present")}}'
+  with_items: "{{usergroups}}"
+  become: yes
+  tags:
+    - user_mgmt
+
+- name: Add user
+  user:
+    name: "{{org.employees[item.name].name }}"
+    state: "{{org.employees[item.name].state }}"
+    shell: "{{ user_shell}}"
+    groups: "{{ item.group }}"
+  with_items:
+    - "{{ org.environments[ENV].members }}"
+  become: yes
+  tags:
+    - user_mgmt
+
+- name: Add keys
+  authorized_key:
+    user: "{{ org.employees[item.name].name }}"
+    key: "{{ lookup('file', '{{ org.employees[item.name].name }}.pub') }}"
+  with_items:
+    - "{{ org.environments[ENV].members }}"
+  when: '"{{ org.employees[item.name].state }}" == "present"'
+  become: yes
+  tags:
+    - user_mgmt

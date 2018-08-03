@@ -1,0 +1,7 @@
+# Taskfile for user management
+
+# Checking and creating Keypair
+- include: keypair.yml
+
+# Creating user and groups
+- include: user.yml

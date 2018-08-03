@@ -1,0 +1,57 @@
+---
+# vars file for user-management
+
+key_gen_path: "/etc/ansible/roles/user-mgmt/files"       # files folder should exist on your role as ssh keys will be genrated here only.
+user_shell: "/bin/bash"
+org:
+  employees:
+    user1:
+      name: "user1"
+      state: "present"
+    user2:
+      name: "user2"
+      state: "present"
+    user3:
+      name: "user3"
+      state: "present"
+    user4:
+      name: "user4"
+      state: "present"
+    user5:
+      name: "yashvinder"
+      state: "present"
+  
+  environments:
+    dev:
+      members:
+        - name: "user1"
+          group: devops
+        - name: "user2"
+          group: devops 
+        - name: "user3"
+          group: devlead 
+        - name: "user4"
+          group: dev 
+    qa:
+      members:
+        - name: "user1"
+          group: devops
+        - name: "user2"
+          group: devops 
+        - name: "user3"
+          group: devlead 
+        - name: "user4"
+          group: dev 
+    prod:
+      members:
+        - name: "user1"
+          group: devops
+        - name: "user2"
+          group: devops 
+        - name: "user3"
+          group: devlead 
+
+usergroups:
+  - name: "devops"
+  - name: "devlead"
+  - name: "dev"
