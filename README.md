@@ -11,32 +11,28 @@ Configure users, group, SSH keys and administrative sudo access. The role can:
 * Install SSH keys for users
 * Configure sudo to allow root access for the administration group
 
-``` NOTE : To generate key-pair "HOST" should be localhost only as we are keeping key-pairs in our 'files' directory. ```
 
-For ex; key_gen_path: "/etc/ansible/roles/user-mgmt/files/"
 
 ## Directory Structure
+
 ```
-.
+osm_usermanagement/
 ├── defaults
 │   └── main.yml
 ├── files
-├── handlers
-│   └── main.yml
+│   ├── add_userlist
+│   └── pub_keys
+│       └── rachit
 ├── meta
 │   └── main.yml
 ├── README.md
 ├── tasks
-│   ├── keypair.yml
-│   ├── main.yml
-│   └── user.yml
+│   ├── add_users_groups.yml
+│   └── main.yml
 ├── templates
-│   └── sudoers
-├── tests
-│   ├── inventory
-│   └── test.yml
-└── vars
-    └── main.yml
+│   └── sudoersfile
+└── users.yml
+
 ```
 
 
@@ -62,23 +58,11 @@ No special requirements; note that this role requires root access, so either run
           become: yes
 
 
-
-
-Role Variables
---------------
-
-Update role variables as required in `vars/main.yml`
-
-
-
 Playbook Execution
 ----------------
 
-Execute the playbook individually using the below command with required extra variables ( for ex; playbook name: users.yml):
-
- ```  (To generate key_pair) : ansible-playbook users.yml -e "ENV=dev HOST=localhost" --tags "key_mgmt" ```
  
- ```  (To create users and groups) : ansible-playbook users.yml -e "ENV=dev HOST=node1" --tags "user_mgmt" ```
+ ```  (To create users and groups) : ansible-playbook users.yml -e " HOST=test" --tags "add_user" ```
 
 
 ## Author Information
