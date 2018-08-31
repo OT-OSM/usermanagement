@@ -1,0 +1,16 @@
+
+
+User_Alias      DEVOPS = neha,anita
+User_Alias      DEVLEAD = 
+User_Alias      DEVOPSLEAD = priyanka
+User_Alias      DEV= 
+Cmnd_Alias      POWER = /sbin/shutdown, /sbin/halt, /sbin/reboot, /sbin/restart, /bin/kill
+Cmnd_Alias      RULES = /usr/sbin/, /sbin/ifconfig
+
+DEVOPS  ALL = NOPASSWD: RULES
+
+DEV  ALL= NOPASSWD: POWER
+
+DEVLEAD    ALL = NOPASSWD: /usr/bin/
+
+DEVOPSLEAD ALL=(ALL) NOPASSWD:ALL
