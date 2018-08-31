@@ -54,7 +54,7 @@ No special requirements; note that this role requires root access, so either run
 
     - hosts: '{{ HOST }}'
       roles:
-        - { role: user-mgmt } 
+        - { role: osm_usermanagement } 
           become: yes
 
 
