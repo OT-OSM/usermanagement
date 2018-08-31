@@ -1,3 +1,0 @@
-%devops ALL=(ALL) NOPASSWD:ALL
-%devlead ALL=(ALL) NOPASSWD:ALL
-%dev ALL=(ALL) NOPASSWD:ALL

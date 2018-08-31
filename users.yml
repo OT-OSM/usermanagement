@@ -1,0 +1,11 @@
+---
+- hosts: '{{ HOST }}'
+  become: yes
+  gather_facts: false 
+
+  
+  roles:
+   - users_and_groups
+
+  
+
