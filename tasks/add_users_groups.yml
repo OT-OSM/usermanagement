@@ -1,0 +1,55 @@
+---
+# tasks file for users_and_groups
+
+- name: configure sudoers file in sudoers.d
+  template:
+    src: templates/sudoersfile
+    dest: /etc/sudoers.d/sudoersfile
+    mode: 0440
+    validate: 'visudo -cf %s'
+  tags: user-mgmt
+
+
+- name: Create new groups
+  group:
+    name: "{{ item.split(':')[1] | trim }}"
+    state: present
+  with_items: "{{ lookup('file', 'files/add_userlist').split('\n') }}"
+  tags: add_user
+
+
+- name: Create new users
+  user:
+    name: "{{ item.split(':')[0] | trim }}"
+    groups: "{{ item.split(':')[1] | trim }}"
+    shell: /bin/bash
+    state: "{{ item.split(':')[2] | trim }}"
+    remove: yes
+  with_items: "{{ lookup('file', 'files/add_userlist').split('\n') }}"
+  tags: add_user
+
+- name: Update home directory permissions
+  file:
+    state: directory
+    path: "/home/{{ item.split(':')[0] | trim }}"
+    mode: 0750
+  with_items: "{{ lookup('file', 'files/add_userlist').split('\n') }}"
+  tags: add_user
+
+# - name: Register
+#   debug:
+#    msg: "{{ item.split(',')[0] | trim }}"    
+#   with_items: "{{ lookup('file', 'files/add_userlist').split('\n') }}"
+#   register: key_location
+#   tags: key  
+
+- name: Add keys
+  authorized_key:
+    user: "{{ item.split(',')[0] | trim }}"
+    key: "{{ lookup('file', 'files/pub_keys/{{ item.split(',')[0] }}' )}}"
+    #key: "{{ item }}"
+  with_items:
+   - "{{ lookup('file', 'files/add_userlist').split('\n') }}"
+  tags: key
+
+
