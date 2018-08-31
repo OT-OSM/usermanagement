@@ -1,7 +1,7 @@
-# Taskfile for user management
+---
+# tasks file for users_and_groups
 
-# Checking and creating Keypair
-- include: keypair.yml
+- include: add_users_groups.yml
+  
 
-# Creating user and groups
-- include: user.yml
+  
