@@ -1,4 +1,4 @@
-User n Group Management
+User and Group Management
 =========
 Role to manage users and groups on a system.
 
@@ -63,11 +63,8 @@ Playbook Execution
 ----------------
 
 Execute the playbook individually using the below command with required extra variables ( for ex; playbook name: users.yml):
-
- ```  (To generate key_pair) : ansible-playbook users.yml -e "ENV=dev HOST=localhost" --tags "key_mgmt" ```
  
- ```  (To create users and groups) : ansible-playbook users.yml -e "ENV=dev HOST=node1" --tags "user_mgmt" ```
-
+ ``` ansible-playbook users.yml -e "HOST=host-name" ```
 
 ## Author Information
 
