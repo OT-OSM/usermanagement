@@ -5,7 +5,7 @@
 
   
   roles:
-   - users_and_groups
+   - osm_usermanagement
 
   
 
