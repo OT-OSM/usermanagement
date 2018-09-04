@@ -48,16 +48,19 @@ osm_usermanagement/
 ```
 
 * There should be a meta file for user and group details in directory structure for ex; userlist is a meta file where details should go in following format
+
   ```
   user1:group1:present
   
- ```
+  ```
+
 * There should be public key of all users in directory structure and it should be defined under pub_keys.Public key name would be on the name of the user.Different name would not work here. 
 
    ```
    For Ex; pub_keys/user1
    
    ```
+   
 Playbook Execution
 ----------------
 
