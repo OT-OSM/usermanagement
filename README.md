@@ -48,7 +48,7 @@ osm_usermanagement/
 * There should be a meta file for user and group details in directory structure for ex; userlist is a meta file where details should go in following format :
 
 ``` 
-user1:group1:present 
+user1,group1,present 
 
 ```
 
