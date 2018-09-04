@@ -1,0 +1,9 @@
+galaxy_info:
+  author: priyanka sharma
+  description: priyanka.sharma@opstree.com
+  company: opstree solutions
+  license: license (GPLv2, CC-BY, etc)
+  min_ansible_version: 1.2
+  galaxy_tags: []
+  dependencies: []
+  
