@@ -7,49 +7,38 @@
     dest: /etc/sudoers.d/sudoersfile
     mode: 0440
     validate: 'visudo -cf %s'
-  tags: user-mgmt
+  tags: yash
 
 
-- name: Create new groups
+- name: Ensure all the required groups exist on the system
   group:
-    name: "{{ item.split(':')[1] | trim }}"
+    name: "{{ item }}"
     state: present
-  with_items: "{{ lookup('file', 'files/add_userlist').split('\n') }}"
-  tags: add_user
+  loop:
+    - dev
+    - devlead
+    - devops
+    - devopslead
+  tags: yash
 
 
 - name: Create new users
   user:
-    name: "{{ item.split(':')[0] | trim }}"
-    groups: "{{ item.split(':')[1] | trim }}"
+    name: "{{ item.split(',')[0] | trim }}"
+    groups: "{{ item.split(',')[1] | trim }}"
     shell: /bin/bash
-    state: "{{ item.split(':')[2] | trim }}"
+    state: "{{ item.split(',')[2] | trim }}"
     remove: yes
-  with_items: "{{ lookup('file', 'files/add_userlist').split('\n') }}"
-  tags: add_user
+  with_items: "{{ lookup('file', 'add_userlist').split('\n') }}"
+  tags: yash
 
-- name: Update home directory permissions
-  file:
-    state: directory
-    path: "/home/{{ item.split(':')[0] | trim }}"
-    mode: 0750
-  with_items: "{{ lookup('file', 'files/add_userlist').split('\n') }}"
-  tags: add_user
 
-# - name: Register
-#   debug:
-#    msg: "{{ item.split(',')[0] | trim }}"    
-#   with_items: "{{ lookup('file', 'files/add_userlist').split('\n') }}"
-#   register: key_location
-#   tags: key  
-
-- name: Add keys
+- name: Set up authorized key
   authorized_key:
     user: "{{ item.split(',')[0] | trim }}"
-    key: "{{ lookup('file', 'files/pub_keys/{{ item.split(',')[0] }}' )}}"
-    #key: "{{ item }}"
-  with_items:
-   - "{{ lookup('file', 'files/add_userlist').split('\n') }}"
-  tags: key
-
+    state: present
+    key: "{{ lookup('file', 'pub_keys/{{ item.split(\",\")[0] }}' )}}"
+  with_items: "{{ lookup('file', 'add_userlist').split('\n') }}"
+  ignore_errors: true
+  tags: yash
 
