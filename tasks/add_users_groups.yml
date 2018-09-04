@@ -7,8 +7,7 @@
     dest: /etc/sudoers.d/sudoersfile
     mode: 0440
     validate: 'visudo -cf %s'
-  tags: yash
-
+  
 
 - name: Ensure all the required groups exist on the system
   group:
@@ -19,8 +18,7 @@
     - devlead
     - devops
     - devopslead
-  tags: yash
-
+  
 
 - name: Create new users
   user:
@@ -30,8 +28,7 @@
     state: "{{ item.split(',')[2] | trim }}"
     remove: yes
   with_items: "{{ lookup('file', 'add_userlist').split('\n') }}"
-  tags: yash
-
+  
 
 - name: Set up authorized key
   authorized_key:
@@ -40,5 +37,5 @@
     key: "{{ lookup('file', 'pub_keys/{{ item.split(\",\")[0] }}' )}}"
   with_items: "{{ lookup('file', 'add_userlist').split('\n') }}"
   ignore_errors: true
-  tags: yash
+  
 
