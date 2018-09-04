@@ -1,13 +1,11 @@
 ---
-# tasks file for users_and_groups
-
+# tasks file for usermanagement
 - name: configure sudoers file in sudoers.d
   template:
-    src: templates/sudoersfile
+    src: templates/sudoersfile.j2
     dest: /etc/sudoers.d/sudoersfile
     mode: 0440
     validate: 'visudo -cf %s'
-  
 
 - name: Ensure all the required groups exist on the system
   group:
@@ -18,7 +16,6 @@
     - devlead
     - devops
     - devopslead
-  
 
 - name: Create new users
   user:
@@ -28,7 +25,6 @@
     state: "{{ item.split(',')[2] | trim }}"
     remove: yes
   with_items: "{{ lookup('file', 'userlist').split('\n') }}"
-  
 
 - name: Set up authorized key
   authorized_key:
@@ -38,4 +34,3 @@
   with_items: "{{ lookup('file', 'userlist').split('\n') }}"
   ignore_errors: true
   
-
