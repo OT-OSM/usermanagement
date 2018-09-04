@@ -44,12 +44,12 @@ osm_usermanagement/
 ## Requirements
 
 * This role requires root access, so either run it in a playbook with a global `become: yes`, or invoke the role in your playbook like:
-
+```
     - hosts: '{{ HOST }}'
       roles:
         - { role: osm_usermanagement } 
-          become: yes
-
+      become: yes
+```
 
 * There should be a meta file for user and group details in directory structure for ex; userlist is a meta file where details should go in following format
 
