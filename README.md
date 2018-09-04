@@ -43,7 +43,7 @@ osm_usermanagement/
 
 ## Requirements
 
-1. This role requires root access, so either run it in a playbook with a global `become: yes`, or invoke the role in your playbook like:
+This role requires root access, so either run it in a playbook with a global `become: yes`, or invoke the role in your playbook like:
 
     - hosts: '{{ HOST }}'
       roles:
@@ -51,7 +51,7 @@ osm_usermanagement/
           become: yes
 
 
-2. There should be a meta file for user and group details in directory structure for ex; userlist is a meta file where details should go in following format :
+There should be a meta file for user and group details in directory structure for ex; userlist is a meta file where details should go in following format
 
   ```
   user1:group1:present
@@ -61,7 +61,7 @@ osm_usermanagement/
   group1 : name of the group
   present/absent : state of the user
   
-3. There should be public key of all users in directory structure and it should be defined under pub_keys.Public key name would be on the name of the user.Different name would not work here. 
+There should be public key of all users in directory structure and it should be defined under pub_keys.Public key name would be on the name of the user.Different name would not work here. 
 
    ```
    For Ex; pub_keys/user1
