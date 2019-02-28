@@ -15,7 +15,7 @@ stages:
 ansible-lint:
   stage: ansible-lint
   script:
-    - ansible-lint nginx
+    - ansible-lint .
 
 ...
 
