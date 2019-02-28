@@ -18,3 +18,4 @@ ansible-lint:
     - ansible-lint nginx
 
 ...
+
