@@ -1,21 +1,22 @@
 ---
 # -*- coding: utf-8 -*-
 
-before_script:
-  - apt-get update -qy
-  - apt-get install -y python-dev python-pip
-  - git submodule update --init
-  - pip install --upgrade ansible ansible-lint
-  - ansible --version
-  - ansible-lint --version
-
 stages:
+  - yaml-lint
   - ansible-lint
 
-ansible-lint:
+yaml_lint:
+  stage: yaml-lint
+  image: opstree/docker:ansible-lint
+  script:
+   - yamllint .
+  allow_failure: true
+
+ansible_lint:
   stage: ansible-lint
+  image: opstree/docker:ansible-lint
   script:
     - ansible-lint .
-
 ...
+
 
