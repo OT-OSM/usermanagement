@@ -16,7 +16,7 @@ ansible_lint:
   stage: ansible-lint
   image: opstree/docker:ansible-lint
   script:
-    - ansible-lint .
+    - ansible-lint -x E104 .
 ...
 
 
