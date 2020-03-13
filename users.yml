@@ -1,6 +1,5 @@
 ---
 - hosts: '{{ HOST }}'
-  become: yes
+  become: true
   roles:
   - osm_usermanagement
-

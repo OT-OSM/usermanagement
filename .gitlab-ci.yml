@@ -9,7 +9,7 @@ yaml_lint:
   stage: yaml-lint
   image: opstree/docker:ansible-lint
   script:
-   - yamllint .
+    - yamllint .
   allow_failure: true
 
 ansible_lint:
@@ -18,5 +18,3 @@ ansible_lint:
   script:
     - ansible-lint -x ANSIBLE0015 .
 ...
-
-

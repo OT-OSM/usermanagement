@@ -23,14 +23,13 @@
     groups: "{{ item.split(',')[1] | trim }}"
     shell: /bin/bash
     state: "{{ item.split(',')[2] | trim }}"
-    remove: yes
+    remove: true
   with_items: "{{ lookup('file', 'userlist').split('\n') }}"
 
 - name: Set up authorized key
   authorized_key:
     user: "{{ item.split(',')[0] | trim }}"
     state: present
-    key: "{{ lookup('file', 'pub_keys/{{ item.split(\",\")[0] }}' )}}"
+    key: "{{ lookup('file', 'pub_keys/{{ item.split(\",\")[0] }}' ) }}"
   with_items: "{{ lookup('file', 'userlist').split('\n') }}"
   ignore_errors: true
-  
