@@ -1,9 +1,16 @@
+---
 galaxy_info:
   author: priyanka sharma
   description: priyanka.sharma@opstree.com
   company: opstree solutions
-  license: license (GPLv2, CC-BY, etc)
+  license: license (GPLv2)
   min_ansible_version: 1.2
+  platforms:
+    - name: EL
+      versions:
+        - 7
+    - name: Ubuntu
+      versions:
+        - bionic
   galaxy_tags: []
   dependencies: []
-  

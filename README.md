@@ -1,15 +1,22 @@
-User and Group Management
-=========
-Role to manage users and groups on a system.
+Ansible Role: User and Group Management
+========================================
+An ansible role to manage users and groups on a system.
 
-## Description
-
+Description
+-----------
 Configure users, group, SSH keys and administrative sudo access. The role can:
 
 * Add groups
 * Add and Remove users
 * Install SSH keys for users
 * Configure sudo to allow root access for the administration group
+
+Version History
+---------------
+
+|**Date**| **Version**| **Description**| **Changed By** |
+|----------|---------|---------------|-----------------|
+|**June '15** | v.1.0 | Initial Draft | Sudipt Sharma |
 
 Supported OS
 ------------
@@ -21,7 +28,8 @@ This role will work on the following operating systems:
    * Redhat 6/7
    * Amazon AMI
 ```
-## Directory Structure
+Directory Structure
+-------------------
 ```
 osm_usermanagement/
 ├── meta
@@ -35,8 +43,8 @@ osm_usermanagement/
 │   └── sudoersfile
 └── userlist
 ```
-## Requirements
-
+Requirements
+------------
 * This role requires root access, so either run it in a playbook with a global become: yes, or invoke the role in your playbook like:
 ```
 - hosts: '{{ HOST }}'
@@ -66,8 +74,8 @@ Execute the playbook individually using the below command with required extra va
  
  ``` ansible-playbook users.yml -e "HOST=host-name" ```
 
-## Author Information
-
+Author Information
+------------------
 * Priyanka Sharma
 * priyanka.sharma@opstree.com
 (https://www.opstree.com/)
