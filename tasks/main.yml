@@ -24,7 +24,7 @@
     shell: /bin/bash
     state: "{{ item.split(',')[2] | trim }}"
     remove: true
-  with_items: "{{ lookup('file', 'userlist').split('\n') }}"
+  with_items: "{{ lookup('file', '{{ user_mapping_file_path }}').split('\n') }}"
 
 - name: Set up authorized key
   authorized_key:

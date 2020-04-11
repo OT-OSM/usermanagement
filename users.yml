@@ -2,4 +2,5 @@
 - hosts: '{{ HOST }}'
   become: true
   roles:
-  - osm_usermanagement
+  - role: osm_usermanagement
+    user_mapping_file_path: userlist
