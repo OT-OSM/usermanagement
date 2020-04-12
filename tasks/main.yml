@@ -30,6 +30,6 @@
   authorized_key:
     user: "{{ item.split(',')[0] | trim }}"
     state: present
-    key: "{{ lookup('file', 'pub_keys/{{ item.split(\",\")[0] }}' ) }}"
-  with_items: "{{ lookup('file', 'userlist').split('\n') }}"
+    key: "{{ lookup('file', '{{ pub_keys_dir_path }}/{{ item.split(\",\")[0] }}' ) }}"
+  with_items: "{{ lookup('file', '{{ user_mapping_file_path }}').split('\n') }}"
   ignore_errors: true
