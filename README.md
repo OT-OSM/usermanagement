@@ -43,16 +43,15 @@ osm_usermanagement/
 │   └── sudoersfile
 └── userlist
 ```
-Requirements
-------------
-* This role requires root access, so either run it in a playbook with a global become: yes, or invoke the role in your playbook like:
-```
-- hosts: jenkins
-  roles:
-    - role: osm_usermanagement
-      user_mapping_file_path: '{{ playbook_dir }}/userlist'
-      pub_keys_dir_path: '{{ playbook_dir }}/pub_keys'
-```
+
+Role Variables
+--------------
+
+|**Variables**| **Default Values**| **Description**|
+|----------|---------|---------------|
+| user_mapping_file_path | userlist | meta file for user and group details|
+| pub_keys_dir_path | pub_keys | Public key of all user |
+
 
 * There should be a meta file for user and group details in directory structure for ex; userlist is a meta file where details should go in following format :
 
@@ -69,7 +68,15 @@ For Ex; pub_keys/user1
 ```
 
 Playbook Execution
-----------------
+------------------
+* This role requires root access, so either run it in a playbook with a global become: yes, or invoke the role in your playbook like:
+```
+- hosts: usermanagement
+  roles:
+    - role: osm_usermanagement
+      user_mapping_file_path: '{{ playbook_dir }}/userlist'
+      pub_keys_dir_path: '{{ playbook_dir }}/pub_keys'
+```
 
 Execute the playbook individually using the below command with required extra variables ( for ex; playbook name: users.yml):
 
