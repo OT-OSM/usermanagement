@@ -1,35 +1,32 @@
 ---
-# tasks file for usermanagement
-- name: configure sudoers file in sudoers.d
-  template:
-    src: templates/sudoersfile.j2
-    dest: /etc/sudoers.d/sudoersfile
-    mode: 0440
-    validate: 'visudo -cf %s'
+# tasks file for user_creation
 
-- name: Ensure all the required groups exist on the system
+- name: Configure sudoers file
+  template:
+    src: sudoers.j2
+    dest: /etc/sudoers
+    mode: 0440
+
+- name: Check list of groups exists or not / create a list of groups
   group:
     name: "{{ item }}"
     state: present
-  loop:
-    - dev
-    - devlead
-    - devops
-    - devopslead
+  with_items: 
+    - "{{secondary_groups}}"
+    - "{{primary_group}}"
 
-- name: Create new users
+  
+- name: Add user 'user1' with 'user1' as primary group and 'group1', 'group2', 'group3' as secondary groups
   user:
-    name: "{{ item.split(',')[0] | trim }}"
-    groups: "{{ item.split(',')[1] | trim }}"
-    shell: /bin/bash
-    state: "{{ item.split(',')[2] | trim }}"
-    remove: true
-  with_items: "{{ lookup('file', '{{ user_mapping_file_path }}').split('\n') }}"
-
-- name: Set up authorized key
-  authorized_key:
-    user: "{{ item.split(',')[0] | trim }}"
+    name: "{{ item.name }}"
+    group: "{{ primary_group }}"
+    groups: "{{secondary_groups}}"
+    append: yes
+    shell: "{{default_shell}}"
+    home: "{{home_dir}}"            
     state: present
-    key: "{{ lookup('file', '{{ pub_keys_dir_path }}/{{ item.split(\",\")[0] }}' ) }}"
-  with_items: "{{ lookup('file', '{{ user_mapping_file_path }}').split('\n') }}"
-  ignore_errors: true
+    generate_ssh_key: yes
+    ssh_key_bits: "{{ssh_key_bits}}"
+    ssh_key_file: "{{ssh_key_file}}"
+    password: "{{ item.password }}"
+  loop: "{{ user_auth_info }}"

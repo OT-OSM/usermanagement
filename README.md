@@ -1,93 +1,38 @@
-Ansible Role: User and Group Management
-========================================
-An ansible role to manage users and groups on a system.
+Role Name
+=========
 
-Description
------------
-Configure users, group, SSH keys and administrative sudo access. The role can:
+A brief description of the role goes here.
 
-* Add groups
-* Add and Remove users
-* Install SSH keys for users
-* Configure sudo to allow root access for the administration group
-
-Version History
----------------
-
-|**Date**| **Version**| **Description**| **Changed By** |
-|----------|---------|---------------|-----------------|
-|**June '15** | v.1.0 | Initial Draft | Sudipt Sharma |
-
-Supported OS
+Requirements
 ------------
-```
-This role will work on the following operating systems:
 
-   * Centos 6/7
-   * Debian 14/16
-   * Redhat 6/7
-   * Amazon AMI
-```
-Directory Structure
--------------------
-```
-osm_usermanagement/
-├── meta
-│   └── main.yml
-├── pub_keys
-├── README.md
-├── tasks
-│   ├── add_users_groups.yml
-│   └── main.yml
-├── templates
-│   └── sudoersfile
-└── userlist
-```
+Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
 
 Role Variables
 --------------
 
-|**Variables**| **Default Values**| **Description**|
-|----------|---------|---------------|
-| user_mapping_file_path | userlist | meta file for user and group details|
-| pub_keys_dir_path | pub_keys | Public key of all user |
+A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
 
+Dependencies
+------------
 
-* There should be a meta file for user and group details in directory structure for ex; userlist is a meta file where details should go in following format :
+A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
 
-```
-user1,group1,present
+Example Playbook
+----------------
 
-```
+Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
 
-* There should be public key of all users in directory structure and it should be defined under pub_keys.Public key name would be on the name of the user.Different name would not work here.
+    - hosts: servers
+      roles:
+         - { role: username.rolename, x: 42 }
 
-```
-For Ex; pub_keys/user1
+License
+-------
 
-```
-
-Playbook Execution
-------------------
-* This role requires root access, so either run it in a playbook with a global become: yes, or invoke the role in your playbook like:
-```
-- hosts: usermanagement
-  roles:
-    - role: osm_usermanagement
-      user_mapping_file_path: '{{ playbook_dir }}/userlist'
-      pub_keys_dir_path: '{{ playbook_dir }}/pub_keys'
-```
-
-Execute the playbook individually using the below command with required extra variables ( for ex; playbook name: users.yml):
-
- ``` ansible-playbook users.yml -e "HOST=host-name" ```
+BSD
 
 Author Information
 ------------------
-* Priyanka Sharma
-* priyanka.sharma@opstree.com
-(https://www.opstree.com/)
 
-#### Feedback, bug-reports, requests, ...
-
-* priyanka.sharma@opstree.com
+An optional section for the role authors to include contact information, or a website (HTML is not allowed).

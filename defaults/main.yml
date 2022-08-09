@@ -1,0 +1,8 @@
+---
+# defaults file for user_creation
+
+default_shell: /bin/bash
+
+home_dir: /home/{{item.name}}
+
+ssh_key_file: .ssh/id_rsa

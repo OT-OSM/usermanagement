@@ -1,3 +1,15 @@
 ---
-user_mapping_file_path: userlist
-pub_keys_dir_path: pub_keys
+# vars file for user_creation
+
+user_auth_info:
+  - { name: "user20", password: $6$J.vgQcHWJn$EhS96xlapHQ7r1sygOE8OTekrJjOWXjnzPdPvvrwKAAioHxAFl5jJ6SakjqxP6cSjYWmCiWUrabadzbyoVoNe/}
+
+primary_group: user20
+
+secondary_groups: ["devops", "developer", "QA"]
+
+ssh_key_bits: 2048
+
+# default_shell:          # By default value for shell is /bin/bash and if you want to change, uncomment the line give shell value
+
+# home_dir:               # By default value for home_dir is /home/<username> and if you want to change, uncomment the line give path of home directory
