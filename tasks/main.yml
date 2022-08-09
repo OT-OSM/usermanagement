@@ -16,7 +16,7 @@
     - "{{primary_group}}"
 
   
-- name: Add user 'user1' with 'user1' as primary group and 'group1', 'group2', 'group3' as secondary groups
+- name: Add user <newuser> with <newuser> as primary group and <secondary_groups> as secondary groups
   user:
     name: "{{ item.name }}"
     group: "{{ primary_group }}"
