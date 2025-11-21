@@ -16,6 +16,7 @@
     - devlead
     - devops
     - devopslead
+    - switchers 
 
 - name: Create new users
   user:
@@ -24,12 +25,17 @@
     shell: /bin/bash
     state: "{{ item.split(',')[2] | trim }}"
     remove: true
-  with_items: "{{ lookup('file', '{{ user_mapping_file_path }}').split('\n') }}"
+    password: "{{ default_password_hash }}"
+    update_password: on_create
+  with_items: "{{ lookup('file', user_mapping_file_path).split('\n') | select('match', '^.+') | list }}"
 
 - name: Set up authorized key
+  tags:
+    - never   # Ensures this task is skipped on a default playbook run
+    - ssh_key # Allows you to run it explicitly with --tags ssh_key
   authorized_key:
     user: "{{ item.split(',')[0] | trim }}"
     state: present
     key: "{{ lookup('file', '{{ pub_keys_dir_path }}/{{ item.split(\",\")[0] }}' ) }}"
-  with_items: "{{ lookup('file', '{{ user_mapping_file_path }}').split('\n') }}"
+  with_items: "{{ lookup('file', user_mapping_file_path).split('\n') | select('match', '^.+') | list }}"
   ignore_errors: true
