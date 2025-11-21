@@ -1,5 +1,26 @@
 ---
 # tasks file for usermanagement
+
+# Remove any unwanted sudoers files (Fix opstree sudo)
+- name: Remove existing opstree sudoers file if any
+  file:
+    path: "/etc/sudoers.d/{{ item }}"
+    state: absent
+  loop:
+    - opstree
+    - 99-cloud-init
+    - cloud-init
+  ignore_errors: yes
+  become: yes
+
+# Remove opstree entry from /etc/sudoers
+- name: Remove opstree entry in /etc/sudoers
+  lineinfile:
+    path: /etc/sudoers
+    regexp: '^opstree\s'
+    state: absent
+    backup: yes
+  become: yes
 - name: configure sudoers file in sudoers.d
   template:
     src: templates/sudoersfile.j2
