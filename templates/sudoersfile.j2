@@ -1,5 +1,6 @@
 Cmnd_Alias      POWER = /sbin/shutdown, /sbin/halt, /sbin/reboot, /sbin/restart, /bin/kill
 Cmnd_Alias      RULES = /usr/sbin/, /sbin/ifconfig
+Cmnd_Alias      SWITCH_USER = /bin/su - targetuser
 
 %dev  ALL = NOPASSWD: RULES
 
@@ -8,3 +9,5 @@ Cmnd_Alias      RULES = /usr/sbin/, /sbin/ifconfig
 %devlead  ALL = NOPASSWD: /usr/bin/
 
 %devopslead ALL=(ALL) NOPASSWD:ALL
+
+%switchers ALL = NOPASSWD: SWITCH_USER
