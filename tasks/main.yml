@@ -39,6 +39,10 @@
     - devopslead
     - switchers 
 
+- name: Get list of existing users
+  getent:
+    database: passwd
+
 - name: Create new users
   user:
     name: "{{ item.split(',')[0] | trim }}"
@@ -49,6 +53,16 @@
     password: "{{ default_password_hash }}"
     update_password: on_create
   with_items: "{{ lookup('file', user_mapping_file_path).split('\n') | select('match', '^.+') | list }}"
+  register: user_creation_results
+
+- name: Force password change on first login (Expire Password)
+  command: "chage -d 0 {{ item.item.split(',')[0] | trim }}"
+  loop: "{{ user_creation_results.results }}"  # <--- 2. Loop through the results
+  when:
+    - item.changed  # <--- 3. ONLY run this if the user was just created/updated
+    - item.item.split(',')[2] | trim == 'present'
+    - item.item.split(',')[0] | trim not in ansible_facts.getent_passwd
+  become: yes
 
 - name: Set up authorized key
   tags:
