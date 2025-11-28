@@ -1,6 +1,17 @@
 ---
 # tasks file for usermanagement
 
+- name: Restrict SSH login to opstree and automation only
+  ansible.builtin.lineinfile:
+    path: /etc/ssh/sshd_config
+    regexp: '^AllowUsers'
+    line: 'AllowUsers opstree automation'
+    state: present
+    # Validate config syntax to prevent SSH lockout
+    validate: '/usr/sbin/sshd -t -f %s'
+  notify: Restart SSH
+
+
 # Remove any unwanted sudoers files (Fix opstree sudo)
 - name: Remove existing opstree sudoers file if any
   file:
