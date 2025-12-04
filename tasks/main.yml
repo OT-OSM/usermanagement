@@ -5,9 +5,20 @@
   ansible.builtin.lineinfile:
     path: /etc/ssh/sshd_config
     regexp: '^AllowUsers'
-    line: 'AllowUsers opstree automation'
+    line: 'AllowUsers opstree automation admin'
     state: present
     # Validate config syntax to prevent SSH lockout
+    validate: '/usr/sbin/sshd -t -f %s'
+  notify: Restart SSH
+
+# Force Password Authentication to 'yes' ONLY for opstree-admin
+- name: Explicitly allow Password Authentication for opstree-admin
+  blockinfile:
+    path: /etc/ssh/sshd_config
+    marker: "# {mark} ANSIBLE MANAGED BLOCK FOR BACKUP ADMIN"
+    block: |
+      Match User admin
+          PasswordAuthentication yes
     validate: '/usr/sbin/sshd -t -f %s'
   notify: Restart SSH
 
