@@ -32,7 +32,6 @@
     - opstree
     - 99-cloud-init
     - cloud-init
-    - sandeeprawat
   ignore_errors: yes
   become: yes
 
