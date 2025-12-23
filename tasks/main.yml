@@ -90,7 +90,7 @@
   tags:
     - never   # Ensures this task is skipped on a default playbook run
     - ssh_key # Allows you to run it explicitly with --tags ssh_key
-  authorized_key:
+  ansible.posix.authorized_key:
     user: "{{ item.split(',')[0] | trim }}"
     state: present
     key: "{{ lookup('file', '{{ pub_keys_dir_path }}/{{ item.split(\",\")[0] }}' ) }}"
